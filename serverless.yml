@@ -60,6 +60,8 @@ provider:
 functions:
   start:
     handler: handler.start
+    memorySize: 128
+    timeout: 10
     events:
       - schedule: rate(3 minutes)
 #    The following are a few example events you can configure
