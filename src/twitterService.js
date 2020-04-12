@@ -36,9 +36,9 @@ function postMatchStat(match) {
         }
 
         if (match.consecutiveWins === 1) {
-            text += ' Estamos há ' + match.consecutiveWins + ' partida sem perder';
+            text += ' Estamos há ' + match.consecutiveWins + ' partida sem perder.';
         } else {
-            text += ' Estamos há ' + match.consecutiveWins + ' partidas seguidas sem perder';
+            text += ' Estamos há ' + match.consecutiveWins + ' partidas seguidas sem perder!';
         }
 
     } else {

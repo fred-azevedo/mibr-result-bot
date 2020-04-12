@@ -3,7 +3,7 @@ const scrapper = require('./scrapper.js');
 const lastMapStatId = 101270;
 const lastMatchStatId = 2340525;
 
-let consecutiveWins = 0;
+let consecutiveWins = 2;
 let consecutiveLosses = 0;
 
 async function findNewMap() {
