@@ -1,17 +1,22 @@
 'use strict';
 
-const parser = require('./src/parser.js');
+const matchFinder = require('./src/matchFinder.js');
+const twitterService = require('./src/twitterService');
 
 module.exports.start = async event => {
 
-  console.log('started');
+  const mapStat = await matchFinder.findNewMap();
 
-  var mapStat = await parser.getMapStat();
+  if (mapStat.hasResult) {
+    twitterService.postMapStat(mapStat);
+  }
 
-  var matchStat = await parser.getMatchStat();
+  const matchStat = await matchFinder.findNewMatch();
+
+  if (matchStat.hasResult) {
+    twitterService.postMatchStat(matchStat);
+  }
 
   return {statusCode: 200};
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
