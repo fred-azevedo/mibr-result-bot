@@ -1,7 +1,20 @@
-function postMapStat(mapStat) {
-    console.log('Postando resultado de Mapa no Twitter...');
-    console.log(mapStat);
+function postMapStat(map) {
 
+    let text = '';
+
+    if (map.MIBRScore > map.opposingTeamScore) {
+
+        text = 'A @mibr ganhou da ' + map.opposingTeam + ' de ' + map.MIBRScore + '-' + map.opposingTeamScore + ' na ' + map.map + '! :)';
+
+    } else {
+
+        text = 'A @mibr perdeu da ' + map.opposingTeam + ' de ' + map.opposingTeamScore + '-' + map.MIBRScore + ' na ' + map.map + '. :(';
+
+    }
+
+    text += '\n\n#SomosMIBR';
+
+    console.log(text);
 
     // A @mibr ganhou da Furia de 16-9 na Dust 2! :)
     // Já são 5 jogos seguidos sem perder na Dust2
@@ -11,7 +24,6 @@ function postMapStat(mapStat) {
 }
 
 function postMatchStat(match) {
-    console.log('Postando resultado de Partida no Twitter...');
 
     let text = '';
 

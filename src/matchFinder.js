@@ -1,7 +1,7 @@
 const scrapper = require('./scrapper.js');
 
 const lastMapStatId = 101270;
-const lastMatchStatId = 2340370;
+const lastMatchStatId = 2340525;
 
 let consecutiveWins = 0;
 let consecutiveLosses = 0;
