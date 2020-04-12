@@ -3,8 +3,15 @@ const got = require('got');
 
 async function getMapStat(lastMapStatId) {
 
-    const response = await got('https://www.hltv.org/stats/teams/matches/9215/MIBR');
+    const result = {
+        hasResult: false,
+        opposingTeam: null,
+        map: null,
+        MIBRScore: null,
+        opposingTeamScore: null
+    };
 
+    const response = await got('https://www.hltv.org/stats/teams/matches/9215/MIBR');
     const $ = cheerio.load(response.body);
 
     var mapStatElement = null;
@@ -24,14 +31,6 @@ async function getMapStat(lastMapStatId) {
         }
 
     });
-
-    const result = {
-        hasResult: false,
-        opposingTeam: null,
-        map: null,
-        MIBRScore: null,
-        opposingTeamScore: null
-    };
 
     if (mapStatElement != null) {
 
@@ -55,8 +54,14 @@ async function getMapStat(lastMapStatId) {
 
 async function getMatchStat(lastMatchStatId) {
 
-    const response = await got('https://www.hltv.org/results?team=9215');
+    const result = {
+        hasResult: false,
+        opposingTeam: null,
+        MIBRScore: null,
+        opposingTeamScore: null
+    };
 
+    const response = await got('https://www.hltv.org/results?team=9215');
     const $ = cheerio.load(response.body);
 
     var matchStatElement = null;
@@ -76,13 +81,6 @@ async function getMatchStat(lastMatchStatId) {
         }
 
     });
-
-    const result = {
-        hasResult: false,
-        opposingTeam: null,
-        MIBRScore: null,
-        opposingTeamScore: null
-    };
     
     if (matchStatElement != null) {
 
