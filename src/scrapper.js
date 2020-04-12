@@ -45,7 +45,7 @@ async function getMapStat(lastMapStatId) {
 
         var scores = extractScores(totalScore);
 
-        result.MIBRScore =  Number(scores[1]);
+        result.MIBRScore = Number(scores[1]);
         result.opposingTeamScore = Number(scores[2]);
     }
 
@@ -55,12 +55,48 @@ async function getMapStat(lastMapStatId) {
 
 async function getMatchStat(lastMatchStatId) {
 
+    const response = await got('https://www.hltv.org/results?team=9215');
+
+    const $ = cheerio.load(response.body);
+
+    var matchStatElement = null;
+
+    $('.results-holder > .results-all').find('.result-con').each(function (index, element) {
+
+        var elem = $(element);
+        var matchUrl = elem.children('a').attr('href');
+
+        var regex = /\Smatches\/(\d+)/gm;
+        var match = regex.exec(matchUrl);
+
+        if (Number(match[1]) != lastMatchStatId) {
+            matchStatElement = elem;
+        } else {
+            return false;
+        }
+
+    });
+
     const result = {
         hasResult: false,
         opposingTeam: null,
         MIBRScore: null,
         opposingTeamScore: null
     };
+    
+    if (matchStatElement != null) {
+
+        result.hasResult = true;
+
+        result.opposingTeam = matchStatElement.find('.team2 > div').text();
+
+        var totalScore = matchStatElement.find('.result-score').text().replace(/\s/g,'');
+
+        var scores = extractScores(totalScore);
+
+        result.MIBRScore = Number(scores[1]);
+        result.opposingTeamScore = Number(scores[2]);
+    }
 
     return result;
 }
