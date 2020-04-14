@@ -24,8 +24,6 @@ async function findNewMatch() {
 
     const matchStat = await scrapper.getMatchStat(data.Item.lastMatchStatId);
 
-    console.log('Encontrei', matchStat);
-
     let match = { ... matchStat };
 
     if (match.hasResult) {
