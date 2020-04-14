@@ -14,4 +14,6 @@ async function tweet(status) {
     });
 }
 
-module.exports = tweet;
+module.exports = {
+    tweet: tweet
+}
