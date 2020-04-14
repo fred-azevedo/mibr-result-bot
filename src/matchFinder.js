@@ -1,37 +1,53 @@
 const scrapper = require('./scrapper.js');
 const AWS = require('aws-sdk');
 
-let consecutiveWins = 2;
-let consecutiveLosses = 0;
-
-const ddb = new AWS.DynamoDB.DocumentClient();
-let params = {TableName: 'mibr-bot-parameters', Key:{ "parameter": 1 }};
-const data = await ddb.get(params).promise();
+const ddb = new AWS.DynamoDB.DocumentClient({params: {TableName: 'mibr-bot-parameters'}});
+let params = {Key:{ "parameter": 1 }};
 
 async function findNewMap() {
+
+    const data = await ddb.get(params).promise();
+
     const mapStat = await scrapper.getMapStat(data.Item.lastMapStatId);
+
+    if (mapStat.hasResult) {
+        data.Item.lastMapStatId = mapStat.mapStatId;
+        await ddb.put(data).promise();
+    }
 
     return mapStat;
 }
 
 async function findNewMatch() {
+
+    const data = await ddb.get(params).promise();
+
     const matchStat = await scrapper.getMatchStat(data.Item.lastMatchStatId);
+
+    console.log('Encontrei', matchStat);
 
     let match = { ... matchStat };
 
-    if (matchStat.MIBRScore > matchStat.opposingTeamScore) {
+    if (match.hasResult) {
+        
+        if (match.MIBRScore > match.opposingTeamScore) {
 
-        consecutiveWins += 1;
-        consecutiveLosses = 0;
+            data.Item.consecutiveWins += 1;
+            data.Item.consecutiveLosses = 0;
+    
+        } else {
+    
+            data.Item.consecutiveWins = 0;
+            data.Item.consecutiveLosses += 1;
+        }
 
-    } else {
+        data.Item.lastMatchStatId = match.matchStatId;
 
-        consecutiveWins = 0;
-        consecutiveLosses += 1;
+        await ddb.put(data).promise();
+
+        match.consecutiveWins = data.Item.consecutiveWins;
+        match.consecutiveLosses = data.Item.consecutiveLosses;
     }
-
-    match.consecutiveWins = consecutiveWins;
-    match.consecutiveLosses = consecutiveLosses;
 
     return match;
 }

@@ -15,6 +15,7 @@ async function getMapStat(lastMapStatId) {
     const $ = cheerio.load(response.body);
 
     var mapStatElement = null;
+    var newMapStatId = lastMapStatId;
 
     $('.stats-table > tbody > tr').each(function (index, element) {
 
@@ -25,6 +26,7 @@ async function getMapStat(lastMapStatId) {
         var match = regex.exec(statUrl);
     
         if (Number(match[1]) != lastMapStatId) {
+            newMapStatId = Number(match[1]);
             mapStatElement = elem;
         } else {
             return false;
@@ -35,6 +37,8 @@ async function getMapStat(lastMapStatId) {
     if (mapStatElement != null) {
 
         result.hasResult = true;
+
+        result.mapStatId = newMapStatId;
 
         result.opposingTeam = mapStatElement.children('td:nth-child(4)').text();
 
@@ -65,6 +69,7 @@ async function getMatchStat(lastMatchStatId) {
     const $ = cheerio.load(response.body);
 
     var matchStatElement = null;
+    var newMatchStatId = lastMatchStatId;
 
     $('.results-holder > .results-all').find('.result-con').each(function (index, element) {
 
@@ -75,6 +80,7 @@ async function getMatchStat(lastMatchStatId) {
         var match = regex.exec(matchUrl);
 
         if (Number(match[1]) != lastMatchStatId) {
+            newMatchStatId = Number(match[1]);
             matchStatElement = elem;
         } else {
             return false;
@@ -85,6 +91,8 @@ async function getMatchStat(lastMatchStatId) {
     if (matchStatElement != null) {
 
         result.hasResult = true;
+
+        result.matchStatId = newMatchStatId;
 
         result.opposingTeam = matchStatElement.find('.team2 > div').text();
 
