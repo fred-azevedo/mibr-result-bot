@@ -20,8 +20,8 @@ functions:
   start:
     handler: handler.start
     name: ${self:service}
-    memorySize: 128
-    timeout: 10
+    memorySize: 256
+    timeout: 15
     events:
       - schedule: rate(3 minutes)
 
