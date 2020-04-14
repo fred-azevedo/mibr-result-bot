@@ -8,13 +8,13 @@ module.exports.start = async event => {
   const mapStat = await matchFinder.findNewMap();
 
   if (mapStat.hasResult) {
-    twitterService.postMapStat(mapStat);
+    await twitterService.postMapStat(mapStat);
   }
 
   const matchStat = await matchFinder.findNewMatch();
 
   if (matchStat.hasResult) {
-    twitterService.postMatchStat(matchStat);
+    await twitterService.postMatchStat(matchStat);
   }
 
   return {statusCode: 200};

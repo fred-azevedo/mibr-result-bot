@@ -1,4 +1,6 @@
-function postMapStat(map) {
+const twitterClient = require('./twitterClient');
+
+async function postMapStat(map) {
 
     let text = '';
 
@@ -14,7 +16,7 @@ function postMapStat(map) {
 
     text += '\n\n#SomosMIBR';
 
-    console.log(text);
+    await tweet(text);
 
     // A @mibr ganhou da Furia de 16-9 na Dust 2! :)
     // Já são 5 jogos seguidos sem perder na Dust2
@@ -23,7 +25,7 @@ function postMapStat(map) {
     // Não ganhamos na Dust 2 há 3 jogos seguidos.
 }
 
-function postMatchStat(match) {
+async function postMatchStat(match) {
 
     let text = '';
 
@@ -54,10 +56,18 @@ function postMatchStat(match) {
 
     text += '\n\n#SomosMIBR';
 
-    console.log(text);
+    await tweet(text);
 
     //A @mibr venceu a partida contra a Furia por 2-0 pela Flashpoint 1. Estamos há X partidas seguidas sem perder.
     //A @mibr perdeu a partida contra a Furia por 2-0 pela Flashpoint 1. Estamos há X partidas seguidas sem vencer. Mas não vamos desistir!
+}
+
+async function tweet(status) {
+    if (process.env.DEBUG_ONLY === true) {
+        console.log(status);
+    } else {
+        await twitterClient.tweet(status);
+    }
 }
 
 module.exports = {

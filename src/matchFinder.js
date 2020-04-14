@@ -1,7 +1,7 @@
 const scrapper = require('./scrapper.js');
 const AWS = require('aws-sdk');
 
-const ddb = new AWS.DynamoDB.DocumentClient({params: {TableName: 'mibr-bot-parameters'}});
+const ddb = new AWS.DynamoDB.DocumentClient({params: {TableName: process.env.DYNAMODB_TABLE}});
 let params = {Key:{ "parameter": 1 }};
 
 async function findNewMap() {
