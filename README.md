@@ -5,12 +5,14 @@ Tweets que (talvez) podem entrar pra história do time.
 
 ## Under the Hood
 
-O Bot é executado como uma Função Lambda da AWS invocada a cada [X] minutos com CloudWatch. O Bot busca por novos resultados e, se existirem, posta no Twitter.
-
 - Node.js v12
 - Serverless Framework
 - AWS Lambda Function
 - AWS DynamoDB
 - [`twitter-lite`](https://www.npmjs.com/package/twitter-lite) para postar os Tweets
 - [`cheerio`](https://www.npmjs.com/package/cheerio) e [`got`](https://www.npmjs.com/package/got) para fazer web scraping
+
+O Bot é executado como uma Função Lambda da AWS invocada a cada [X] minutos com CloudWatch. O Bot busca por novos resultados e, se existirem, posta no Twitter.
+
+#SomosMIBR
 
