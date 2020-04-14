@@ -5,6 +5,11 @@ provider:
   runtime: nodejs12.x
   environment:
     DYNAMODB_TABLE: mibr-bot-parameters
+    TWITTER_CONSUMER_KEY: ""
+    TWITTER_CONSUMER_SECRET: ""
+    TWITTER_TOKEN_KEY: ""
+    TWITTER_TOKEN_SECRET: ""
+    DEBUG_ONLY: true
   iamRoleStatements:
     - Effect: Allow
       Action:
