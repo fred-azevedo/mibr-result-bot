@@ -8,10 +8,12 @@ async function postMapStat(map) {
 
         text = 'A @mibr ganhou da ' + map.opposingTeam + ' de ' + map.MIBRScore + '-' + map.opposingTeamScore + ' na ' + map.map + '! :)';
 
-    } else {
+    } else if (map.MIBRScore < map.opposingTeamScore) {
 
         text = 'A @mibr perdeu da ' + map.opposingTeam + ' de ' + map.opposingTeamScore + '-' + map.MIBRScore + ' na ' + map.map + '. :(';
 
+    } else {
+        text = 'A @mibr empatou com a ' + map.opposingTeam + '. ' + map.opposingTeamScore + '-' + map.MIBRScore + ' na ' + map.map + '. :|';
     }
 
     text += '\n\n#SomosMIBR';
@@ -43,7 +45,8 @@ async function postMatchStat(match) {
             text += ' Estamos há ' + match.consecutiveWins + ' partidas seguidas sem perder!';
         }
 
-    } else {
+    } else if (match.MIBRScore < match.opposingTeamScore) {
+        
         text = 'A @mibr perdeu a partida contra a ' + match.opposingTeam + ' por ' + match.opposingTeamScore + '-' + match.MIBRScore + '.';
 
         if (match.consecutiveLosses === 1) {
@@ -52,6 +55,8 @@ async function postMatchStat(match) {
             text += ' Estamos há ' + match.consecutiveLosses + ' partidas seguidas sem vencer. Mas não vamos desistir!';
         }
 
+    } else {
+        text = 'A @mibr empatou a partida contra a ' + match.opposingTeam + '. Ficou ' + match.opposingTeamScore + '-' + match.MIBRScore + '. Ninguém ganhou, ninguém perdeu. Seguimos em frente!';
     }
 
     text += '\n\n#SomosMIBR';
