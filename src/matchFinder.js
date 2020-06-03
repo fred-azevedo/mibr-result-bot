@@ -33,9 +33,13 @@ async function findNewMatch() {
             data.Item.consecutiveWins += 1;
             data.Item.consecutiveLosses = 0;
     
-        } else {
+        } else if (match.MIBRScore < match.opposingTeamScore) {
     
             data.Item.consecutiveWins = 0;
+            data.Item.consecutiveLosses += 1;
+        } else {
+            
+            data.Item.consecutiveWins += 1;
             data.Item.consecutiveLosses += 1;
         }
 
