@@ -19,7 +19,7 @@
   "dependencies": {
     "aws-sdk": "^2.656.0",
     "cheerio": "^1.0.0-rc.3",
-    "got": "^10.7.0",
+    "got": "^11.8.5",
     "twitter-lite": "^0.9.4"
   }
 }
